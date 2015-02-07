@@ -6,13 +6,13 @@ class EditorController < ApplicationController
 
 		@a = Array.new
 
+		#all text for that work
 		textLines = Text.where(work: params[:work])
 		puts "textLines" + textLines.to_s
 		
 		textLines.each do |name|
 		#gives each elements info
-			hash_lines = {}#{:textLineSeq =>" ", :textLineId =>" ", :textText =>" ", :vis =>" ",:charName =>" ", :charId =>" "}
-			puts "name: ***** " + name.to_s
+			hash_lines = {}
 			ch = Element.find_by(id: name.element_id)
 			hash_lines[:textText] = name.content_text
 			hash_lines[:textLineSeq] = name.sequence
@@ -37,9 +37,9 @@ class EditorController < ApplicationController
 		end
 	end
 
-	def edit 
-		texts = Text.find_by(sequence: params['id'])
-		puts texts.class.name
+	def edit
+		
+		texts = Text.find_by(id: params['id'])
 		if texts.class.name != 'Text'
 			texts.each do |text|
 				if text.work_id == params['work']
@@ -48,6 +48,8 @@ class EditorController < ApplicationController
 			end
 		else
 			@sample_text = texts
+			@char_name = params['character']
+
 		end
 
 		respond_to do |edit|
@@ -56,29 +58,9 @@ class EditorController < ApplicationController
 		end
 	end
 
-=begin
-	def edit_stuff
-		 @a = Array.new
-
-		 hash_lines = {:textLineSeq =>" ", :textLineId =>" ", :textText =>" ", :vis =>" ",:charName =>" ", :charId =>" "}
-
-		 textLines = Text.where(work: params[:work])
-
-		 textLines.each do |name|
-		 #gives each elements info
-		 	ch = Element.find_by(id: name.element_id)
-		 	hash_lines[:textText] = name.content_text
-		 	hash_lines[:textLineSeq] = name.sequence
-		 	hash_lines[:textLineId] = name.id
-		 	hash_lines[:charName] = ch.element_name
-		 	hash_lines[:charId] = ch.id
-		 	hash_lines[:vis] = name.visibility
-
-		 	#push hash into array
-		 	@a.push(hash_lines)
-		end
-		
+	#will be used for when text is submitted to editor view
+	def edit_text
+		puts params[:txt] + " " + params[:visi]
 	end
-=end
 
 end

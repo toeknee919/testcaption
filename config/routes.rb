@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   #TODO: is this necessary?
   post "editor/index" => 'editor#text', :as => :text
   patch "editor/index"
-
+  post "editor/form_submission"
   root 'cast#index'
 
   mount Resque::Server.new, at: "/resque"

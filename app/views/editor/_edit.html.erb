@@ -1,3 +1,22 @@
+
+
+<script>
+function submit_new_text(text, vis){
+  //alert(text + " : " + vis);
+  $.ajax('/editor/form_submission', {
+            type:'POST',
+            data: {txt:text, visi:vis},
+          success:(function(d){
+            console.log('Data sent to controller');
+          }),
+        });
+}
+
+</script>
+
+
+<!--form for editing the text-->
+
 <div class="modal-dialog" id="unique">
   <div class="modal-content">
     <div class="modal-header">
@@ -6,6 +25,7 @@
     </div>
     <div class="modal-body">
 			<%= simple_form_for @sample_text do |f| %>
+      <%= f.label :@char_name.inspect , :class => 'form-control'%>
 				<%= f.bootsy_area :content_text, :class => 'form-control', editor_options: { link: false, color: false } %>
         <div class="checkbox">
 				  <%= f.input :visibility, :class => 'form-control glyphicon glyphicon-eye-open' %>
@@ -13,8 +33,8 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-default" onclick="split_modal()" >Split Text</button>
-          <button type="submit" class="btn btn-default" onclick="this.form.submit()" >Split Text</button>
-          <!--<%= f.submit :class => 'btn btn-primary' %>-->
+          <button type="submit" class="btn btn-default" onclick="submit_new_text(document.getElementById('text_content_text').innerHTML, document.getElementById('text_visibility').checked)" >Submit Change</button>
+          <%=f.submit :class=> 'btn btn-primary'%>
         </div>
 
 			<% end %>

@@ -33,7 +33,9 @@ window.onload = function () {
 		  						<td><span class='glyphicon glyphicon-eye-close'></td>
 								<% end %>
 								<td><%= link_to ' Edit',
-											edit_path(id: entry[:textLineSeq], work: @work.id),
+											# text line id for entire databse
+											edit_path(id: entry[:textLineId], work: @work.id,
+											 character: entry[:charName]),
 											{:remote => true,
 												'data-toggle' =>  "modal",
 												'data-target' => '#modal-window',

@@ -5,5 +5,5 @@ $(document).ready(function(){
 
 //changes the script in the database on submit
 function split_modal(){
-	
+	alert("Nice try, splitting text will happen some day");
 }
